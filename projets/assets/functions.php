@@ -41,3 +41,36 @@ function get_recipes(array $recipes, int $limit) : array
 
     return $valid_recipes;
 }
+
+function dump($variables){
+   echo '<pre>';
+    var_dump($variables);
+    echo '</pre>';
+}
+
+function creneaux_html(array $creneaux){
+    if(empty($creneaux)){
+        return 'Fermé';
+    };
+
+    $phrases = [];
+
+    foreach($creneaux as $creneau){
+        $phrases[] = "de <strong> {$creneau[0]}H</strong> à <strong>{$creneau[1]}H</strong>";
+    }
+    return 'Ouvert ' . implode(' et ', $phrases);
+    // objectif construire le tableau intermédiaire
+    // implode pour construire la phrase final
+};
+
+function in_creneaux (int $heure, array $creneaux): bool 
+{
+    foreach($creneaux as $creneau){
+        $debut = $creneau[0];
+        $fin = $creneau[1];
+        if($heure >= $debut && $heure < $fin){
+            return true;
+        }
+    } 
+    return false;  
+};
